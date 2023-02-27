@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{%block title%}{% endblock title %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static',filename='main.css') }}">
+   </head>
+<body>
+<!--NavBar-->
+  <div class="container">
+  <nav class="navbar navbar-expand-sm  border-bottom bg-steel" >
+      <a class="navbar-brand" href="#"><img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Bootstrap" width="30" height="24"></a>
+      <a class="navbar-brand" href="#">Nav<span class="text-info" >Bar</span></a>
+      <a class="nav-link link-info"  href="{{ url_for('home') }}">Home</a> 
+      <button class="navbar-toggler" type="button" 
+               data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
+               aria-controls="navbarNavAltMarkup" aria-expanded="false" 
+               aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse"  id="navbarNavAltMarkup">
+              <div class="navbar-nav ms-auto">
+                      {% if current_user.is_authenticated %}
+                      <a class="nav-link link-info" href="{{ url_for('new_post') }}" >New Post</a>
+                      <a class="nav-link link-info" href="{{ url_for('account') }}" >profile</a>
+                      <a class="nav-link link-info" href="{{ url_for('logout') }}" >logout</a>
+                      {%else%}
+                      <a class="nav-link link-info " href="{{ url_for('register') }}">Register</a>
+                      <a class="nav-link link-info" href="{{ url_for('login') }}" >login</a>                      
+                      {%endif%}
+              </div>
+      </div>
+    </nav>
+  </div>
+<!--//// blocks  ////-->
+<div class="container">
+  <!--//// block of Flash Alerts msgs  ////-->
+          {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                      {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                              {{ message }}
+                            </div>
+                      {% endfor %}
+                {% endif %}
+          {% endwith %} 
+  <!--//// Main block content  ////--> 
+  <div class="row"> 
+      {% block content %} {% endblock content %}
+<!-- Stack the columns on mobile by making one full-width and the other half-width -->    
+  <div class="col-12 col-md-6"></div>
+  </div>
+</div> 
+<!--//// Footer  ////-->
+<footer class="pt-2 mt-4 text-muted border-top text-center"><small>OUAATYA   :</small>  &copy;2022</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>  

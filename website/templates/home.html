@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+
+{% block title %}
+
+ {{ title }} 
+{% endblock %}
+
+{% block content %} 
+
+ 
+<div class="col-12 col-md-6"> 
+    
+    <legend class="border-bottom mt-4">list posts</legend>
+        {%for post in posts %}
+    <div class="content-section mt-5">        
+        <div class="d-flex">
+            <div class="flex-shrink-0"><img class="rounded-circle account-img mt-1" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"></div>
+            <div class="flex-grow-1 mt-4">
+                <h4><a class="article-title"   href="">{{ post.title }} </a></h4>
+                <p><i><small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small></i></p>
+                <p class="text-break">
+                    {{ post.content }}
+                </p>
+           
+            </div>
+
+        </div>
+
+    </div> 
+        
+        {% endfor %}
+
+        
+        
+        
+    
+    
+</div>
+
+
+
+{% endblock content %}
